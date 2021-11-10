@@ -1,8 +1,17 @@
 <template>
   <div class="container">
     <div class="table">
+      <div class="filter">
+        <input
+          type="text"
+          placeholder="Filter By Name"
+          v-model="filterByName"
+        />
+      </div>
       <div class="head">
-        <div class="name">Name</div>
+        <div class="name">
+          <p>Name</p>
+        </div>
         <div class="order">
           Pick Up Order
           <i class="fas fa-sort" @click="sortList('pickUpOrder')"></i>
@@ -13,7 +22,7 @@
         </div>
         <div class="route">Trip Route</div>
       </div>
-      <div class="row" v-for="item in passengers" :key="item.id">
+      <div class="row" v-for="item in filteredPassengers" :key="item.id">
         <div>
           {{ item.name }}
         </div>
@@ -40,6 +49,7 @@ export default {
     return {
       pickUpOrder: false,
       tripDuration: false,
+      filterByName: "",
     };
   },
   created() {
@@ -47,6 +57,16 @@ export default {
   },
   computed: {
     ...mapState(["passengers"]),
+    filteredPassengers() {
+      if (this.filterByName) {
+        const newList = this.passengers.filter(
+          (item) => item.name == this.filterByName
+        );
+        return newList;
+      } else {
+        return this.passengers;
+      }
+    },
   },
   methods: {
     goToDetails(item) {
