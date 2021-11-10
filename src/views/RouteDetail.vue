@@ -1,16 +1,7 @@
 <template>
-  <div class="container">Route Detail</div>
+  <div>Route Detail</div>
 </template>
 
 <script>
-export default {
-  data() {
-    return {
-      item: "",
-    };
-  },
-  created() {
-    this.item = this.$route.params.item;
-  },
-};
+export default {};
 </script>
