@@ -5,11 +5,11 @@
         <div class="name">Name</div>
         <div class="order">
           Pick Up Order
-          <i class="fas fa-sort"></i>
+          <i class="fas fa-sort" @click="sortList('pickUpOrder')"></i>
         </div>
         <div class="duration">
           Trip Duration
-          <i class="fas fa-sort"></i>
+          <i class="fas fa-sort" @click="sortList('tripDuration')"></i>
         </div>
         <div class="route">Trip Route</div>
       </div>
@@ -24,7 +24,9 @@
           {{ item.tripDuration }}
         </div>
         <div class="">
-          {{ item.pickUpLocation }}
+          <button class="secondary" @click="goToDetails(item.pickUpLocation)">
+            Go To Details
+          </button>
         </div>
       </div>
     </div>
@@ -34,11 +36,47 @@
 <script>
 import { mapState } from "vuex";
 export default {
+  data() {
+    return {
+      pickUpOrder: false,
+      tripDuration: false,
+    };
+  },
   created() {
     this.$store.dispatch("getPassengers");
   },
   computed: {
     ...mapState(["passengers"]),
+  },
+  methods: {
+    goToDetails(item) {
+      this.$router.push({ path: "routedetail", params: { item: item } });
+    },
+    sortList(val) {
+      if (val == "tripDuration") {
+        if (!this.tripDuration) {
+          this.passengers.sort((a, b) => {
+            return a.tripDuration - b.tripDuration;
+          });
+        } else {
+          this.passengers.sort((a, b) => {
+            return b.tripDuration - a.tripDuration;
+          });
+        }
+        this.tripDuration = !this.tripDuration;
+      } else {
+        if (!this.pickUpOrder) {
+          this.passengers.sort((a, b) => {
+            return a.pickUpOrder - b.pickUpOrder;
+          });
+        } else {
+          this.passengers.sort((a, b) => {
+            return b.pickUpOrder - a.pickUpOrder;
+          });
+        }
+        this.pickUpOrder = !this.pickUpOrder;
+      }
+    },
   },
 };
 </script>
