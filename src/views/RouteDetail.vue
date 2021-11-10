@@ -3,5 +3,14 @@
 </template>
 
 <script>
-export default {};
+export default {
+  data() {
+    return {
+      item: "",
+    };
+  },
+  created() {
+    this.item = this.$route.params.item;
+  },
+};
 </script>
