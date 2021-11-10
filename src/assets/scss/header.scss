@@ -1,0 +1,28 @@
+.header {
+    .container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 5px;
+    }
+    background-color: $first-color;
+    color: $third-color;
+    .logo {
+        max-width: 100px;
+        img {
+        width: 100%;
+        height: auto;
+        } 
+    }
+    .menu {
+        ul {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            a {
+                margin-right: 10px;
+                color: $third-color;
+            }
+        }
+    }
+}
