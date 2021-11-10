@@ -9,7 +9,7 @@
       <div class="menu">
         <ul>
           <router-link to="/passengers"> Passengers </router-link>
-          <router-link to="#"> Create Route </router-link>
+          <router-link to="/create"> Create </router-link>
           <router-link to="/routedetail"> Route Details </router-link>
           <button class="secondary">Logout</button>
         </ul>
