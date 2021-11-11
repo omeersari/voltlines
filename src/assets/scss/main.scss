@@ -71,6 +71,15 @@ a {
     content: "*";
 }
 
+.error {
+    font-size: 16px;
+    margin-top: 15px;
+    color: rgb(216, 11, 11);
+}
+
+.error::before {
+    content: "- ";
+}
 // Passengers Table
 
 .filter {
@@ -112,12 +121,16 @@ a {
 }
 
 .create-form {
-    border: 1px solid $second-color;
     padding: 16px;
     display: flex;
     flex-direction: column;
-    h4 {
+    border: 0.5px solid $second-color;
+    border-radius: 5px;
+    height: max-content;
+    h4, h5 {
         margin-bottom: 10px;
+        text-align: center;
+        color: $second-color;
     }
 
     .lat-lng {
@@ -126,3 +139,14 @@ a {
         }
     }
 }
+
+.map {
+    .information {
+        margin-top: 10px;
+    }
+    button {
+        margin-top: 10px;
+    }
+}
+
+

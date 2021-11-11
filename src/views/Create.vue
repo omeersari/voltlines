@@ -2,7 +2,7 @@
   <div class="container">
     <div class="flex-2">
       <div class="create-form">
-        <h4>Please fill the following inputs</h4>
+        <h4>CREATE PASSENGER</h4>
         <input type="text" placeholder="Name" v-model="name" />
         <div class="lat-lng">
           <input
@@ -34,6 +34,7 @@
           Trip duration will be automatically filled after marking the map.
         </p>
         <button class="primary" @click="create">Create Route</button>
+        <p class="error" v-if="err">{{ err }}</p>
       </div>
       <div class="map">
         <GmapMap
@@ -54,12 +55,12 @@
             travelMode="DRIVING"
           />
         </GmapMap>
-        <button class="secondary" @click="resetMap()">Reset Map</button>
         <div class="information" v-if="distance && duration">
           The distance between these locations is: {{ distance }} The trip
           duration with driving is:
           {{ (duration / (60 * 60)).toFixed(2) }} hours.
         </div>
+        <button class="secondary" @click="resetMap()">Reset Map</button>
       </div>
     </div>
   </div>
@@ -68,6 +69,7 @@
 <script>
 import DirectionsRenderer from "../components/DirectionsRenderer.vue";
 import { gmapApi } from "vue2-google-maps";
+import { mapState } from "vuex";
 export default {
   components: {
     DirectionsRenderer,
@@ -91,6 +93,7 @@ export default {
   },
   computed: {
     google: gmapApi,
+    ...mapState(["passengers"]),
   },
   methods: {
     create() {
@@ -100,11 +103,15 @@ export default {
         pickUpOrder: this.pickUpOrder,
         tripDuration: this.tripDuration,
       };
-      if (!this.name || !this.pickUpOrder) {
+      if (!this.name || !this.pickUpOrder || !this.tripDuration) {
         this.err = "Please provide all fields";
+      } else {
+        this.err = "";
+        if (this.checkValidation()) {
+          this.$store.dispatch("createPassenger", data);
+          this.resetMap();
+        }
       }
-      this.$store.dispatch("createPassenger", data);
-      this.resetMap();
     },
     addMarker(event) {
       const marker = {
@@ -116,7 +123,6 @@ export default {
         this.locations.push(this.position);
         this.pickUpLocation.lat = this.position.lat.toFixed(2);
         this.pickUpLocation.lng = this.position.lng.toFixed(2);
-        console.log("pos", this.position);
       } else {
         this.destination = marker;
         this.locations.push(this.destination);
@@ -138,6 +144,20 @@ export default {
       }
       this.locations = [];
     },
+    checkValidation() {
+      console.log(this.passengers.length);
+      if (this.duration / (60 * 60) > 2) {
+        this.err = "Trip Duration is more than 2 hours.";
+        return false;
+      }
+      if (this.passengers.length >= 9) {
+        this.err = "Total passenger maximum can be 9";
+        return false;
+      }
+      if (!this.err) {
+        return true;
+      }
+    },
     resetMap() {
       this.position = null;
       this.destination = null;
@@ -149,6 +169,8 @@ export default {
         lat: "",
         lng: "",
       };
+      this.name = "";
+      this.pickUpOrder = "";
     },
   },
 };
