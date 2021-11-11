@@ -21,6 +21,7 @@ export default MapElementFactory({
         let { origin, destination, travelMode } = this;
         if (!origin || !destination || !travelMode) {
           // clear route
+          directionsRenderer.setDirections({ routes: [] });
           return;
         }
         directionsService.route(

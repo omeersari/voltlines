@@ -30,6 +30,9 @@
           disabled
           v-model="tripDuration"
         />
+        <p class="warn">
+          Trip duration will be automatically filled after marking the map.
+        </p>
         <button class="primary" @click="create">Create Route</button>
       </div>
       <div class="map">
@@ -51,7 +54,7 @@
             travelMode="DRIVING"
           />
         </GmapMap>
-        <button class="secondary">Reset Map</button>
+        <button class="secondary" @click="resetMap()">Reset Map</button>
         <div class="information" v-if="distance && duration">
           The distance between these locations is: {{ distance }} The trip
           duration with driving is:
@@ -83,6 +86,7 @@ export default {
       destination: null,
       distance: "",
       duration: "",
+      err: "",
     };
   },
   computed: {
@@ -96,7 +100,11 @@ export default {
         pickUpOrder: this.pickUpOrder,
         tripDuration: this.tripDuration,
       };
+      if (!this.name || !this.pickUpOrder) {
+        this.err = "Please provide all fields";
+      }
       this.$store.dispatch("createPassenger", data);
+      this.resetMap();
     },
     addMarker(event) {
       const marker = {
@@ -129,6 +137,18 @@ export default {
         this.tripDuration = res.rows[0].elements[0].duration["text"];
       }
       this.locations = [];
+    },
+    resetMap() {
+      this.position = null;
+      this.destination = null;
+      this.locations = [];
+      this.distance = "";
+      this.duration = "";
+      this.tripDuration = "";
+      this.pickUpLocation = {
+        lat: "",
+        lng: "",
+      };
     },
   },
 };

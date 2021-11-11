@@ -7,10 +7,14 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   state: {
     passengers: [],
+    createdPass: "",
   },
   mutations: {
     GET_PASSENGERS(state, payload) {
       state.passengers = payload;
+    },
+    CREATE_PASSENGER(state, payload) {
+      state.createdPass = payload;
     },
   },
   actions: {
@@ -18,9 +22,10 @@ export default new Vuex.Store({
       const response = await api.getAllPassengers();
       commit("GET_PASSENGERS", response);
     },
-    async createPassenger(data) {
+    async createPassenger({ commit }, data) {
+      console.log(data);
       const response = await api.createPassenger(data);
-      console.log(response);
+      commit("CREATE_PASSENGER", response);
     },
   },
   modules: {},
