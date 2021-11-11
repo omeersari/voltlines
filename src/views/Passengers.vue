@@ -21,6 +21,7 @@
           <i class="fas fa-sort"></i>
         </div>
         <div class="route">Trip Route</div>
+        <div class="route">Delete</div>
       </div>
       <div class="row" v-for="item in filteredPassengers" :key="item.id">
         <div>
@@ -36,6 +37,9 @@
           <button class="secondary" @click="goToDetails(item.pickUpLocation)">
             Go To Details
           </button>
+        </div>
+        <div class="deletePassenger" @click="deletePassenger(item)">
+          <i class="fas fa-trash-alt"></i>
         </div>
       </div>
     </div>
@@ -71,6 +75,9 @@ export default {
   methods: {
     goToDetails(item) {
       this.$router.push({ path: "routedetail", params: { item: item } });
+    },
+    deletePassenger(item) {
+      this.$store.dispatch("deletePassenger", item);
     },
     sortList(val) {
       if (val == "tripDuration") {

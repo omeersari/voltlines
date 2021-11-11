@@ -24,4 +24,7 @@ export default {
   createPassenger(passenger) {
     return this.execute("post", "passengers", passenger);
   },
+  deletePassenger(passenger) {
+    return this.execute("delete", `passengers/${passenger.id}`);
+  },
 };
