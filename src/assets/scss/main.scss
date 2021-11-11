@@ -154,3 +154,21 @@ a {
 }
 
 
+// Detail Page
+
+.detail {
+    margin-top: 30px;
+    justify-content: flex-start;
+    .google-map {
+        margin-right: 30px;
+    }
+
+    .info {
+        p {
+            margin-top: 5px;
+            font-weight: bold;
+            color: $second-color;
+        }
+    }
+}
+

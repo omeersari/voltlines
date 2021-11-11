@@ -78,8 +78,8 @@ export default {
     return {
       name: "",
       pickUpLocation: {
-        lat: "",
-        lng: "",
+        lat: null,
+        lng: null,
       },
       pickUpOrder: "",
       tripDuration: "",
@@ -122,8 +122,8 @@ export default {
       if (!this.position) {
         this.position = marker;
         this.locations.push(this.position);
-        this.pickUpLocation.lat = this.position.lat.toFixed(2);
-        this.pickUpLocation.lng = this.position.lng.toFixed(2);
+        this.pickUpLocation.lat = this.position.lat;
+        this.pickUpLocation.lng = this.position.lng;
       } else {
         this.destination = marker;
         this.locations.push(this.destination);

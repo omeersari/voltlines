@@ -34,7 +34,7 @@
           {{ item.tripDuration }}
         </div>
         <div class="">
-          <button class="secondary" @click="goToDetails(item.pickUpLocation)">
+          <button class="secondary" @click="goToDetails(item)">
             Go To Details
           </button>
         </div>
@@ -74,7 +74,7 @@ export default {
   },
   methods: {
     goToDetails(item) {
-      this.$router.push({ path: "routedetail", params: { item: item } });
+      this.$router.push({ name: "RouteDetail", params: { item } });
     },
     deletePassenger(item) {
       this.$store.dispatch("deletePassenger", item);
