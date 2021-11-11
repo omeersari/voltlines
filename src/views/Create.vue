@@ -102,6 +102,7 @@ export default {
         pickUpLocation: this.pickUpLocation,
         pickUpOrder: this.pickUpOrder,
         tripDuration: this.tripDuration,
+        destination: this.destination,
       };
       if (!this.name || !this.pickUpOrder || !this.tripDuration) {
         this.err = "Please provide all fields";
