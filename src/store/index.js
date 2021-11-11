@@ -18,6 +18,10 @@ export default new Vuex.Store({
       const response = await api.getAllPassengers();
       commit("GET_PASSENGERS", response);
     },
+    async createPassenger(data) {
+      const response = await api.createPassenger(data);
+      console.log(response);
+    },
   },
   modules: {},
 });
