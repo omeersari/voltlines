@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <div class="table">
+    <div class="actions">
       <div class="filter">
         <input
           type="text"
@@ -8,6 +8,18 @@
           v-model="filterByName"
         />
       </div>
+
+      <div class="sortButtons">
+        <button class="secondary" @click="sortList('pickUpOrder')">
+          Sort By Order
+        </button>
+        <button class="secondary" @click="sortList('tripDuration')">
+          Sort By Trip Duration
+        </button>
+      </div>
+    </div>
+
+    <div class="table">
       <div class="head">
         <div class="name">
           <p>Name</p>
@@ -43,12 +55,25 @@
         </div>
       </div>
     </div>
+    <div class="cards">
+      <card
+        v-for="passenger in passengers"
+        :key="passenger.id"
+        :passenger="passenger"
+        @deletePassenger="deletePassenger(passenger)"
+        @goToDetails="goToDetails(passenger)"
+      />
+    </div>
   </div>
 </template>
 
 <script>
 import { mapState } from "vuex";
+import Card from "../components/Card.vue";
 export default {
+  components: {
+    Card,
+  },
   data() {
     return {
       pickUpOrder: false,

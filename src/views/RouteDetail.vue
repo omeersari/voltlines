@@ -7,18 +7,20 @@
       </option>
     </select>
     <div class="flex-2 detail" v-if="item">
-      <GmapMap
-        class="google-map"
-        :center="{ lat: 41.11, lng: 29.02 }"
-        :zoom="10"
-        style="width: 700px; height: 500px"
-      >
-        <DirectionsRenderer
-          :origin="position"
-          :destination="destination"
-          travelMode="DRIVING"
-        />
-      </GmapMap>
+      <div class="google-map">
+        <GmapMap
+          class="google-map"
+          :center="{ lat: 41.11, lng: 29.02 }"
+          :zoom="10"
+          style="width: inherit; height: inherit"
+        >
+          <DirectionsRenderer
+            :origin="position"
+            :destination="destination"
+            travelMode="DRIVING"
+          />
+        </GmapMap>
+      </div>
       <div class="info">
         <p>Name: {{ item.name }}</p>
         <p>Pick up Order : {{ item.pickUpOrder }}</p>

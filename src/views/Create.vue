@@ -17,8 +17,8 @@
             placeholder="Lat:"
             v-model="pickUpLocation.lng"
           />
-          <p class="warn">Please mark map to see Lat and Lng</p>
         </div>
+        <p class="warn">Please mark map to see Lat and Lng</p>
         <input
           type="number"
           placeholder="Pick Up Order"
@@ -36,11 +36,11 @@
         <button class="primary" @click="create">Create Route</button>
         <p class="error" v-if="err">{{ err }}</p>
       </div>
-      <div class="map">
+      <div class="google-map">
         <GmapMap
           :center="{ lat: 41.11, lng: 29.02 }"
           :zoom="10"
-          style="width: 700px; height: 500px"
+          style="width: inherit; height: inherit"
           @click="addMarker"
         >
           <gmap-marker
@@ -55,12 +55,14 @@
             travelMode="DRIVING"
           />
         </GmapMap>
-        <div class="information" v-if="distance && duration">
-          The distance between these locations is: {{ distance }} The trip
-          duration with driving is:
-          {{ (duration / (60 * 60)).toFixed(2) }} hours.
+        <div class="information">
+          <p v-if="distance && duration">
+            The distance between these locations is: {{ distance }} The trip
+            duration with driving is:
+            {{ (duration / (60 * 60)).toFixed(2) }} hours.
+          </p>
+          <button class="secondary" @click="resetMap()">Reset Map</button>
         </div>
-        <button class="secondary" @click="resetMap()">Reset Map</button>
       </div>
     </div>
   </div>

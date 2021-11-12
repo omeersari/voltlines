@@ -82,7 +82,7 @@ a {
 }
 // Passengers Table
 
-.filter {
+.actions {
     margin-bottom: 15px;
 }
 
@@ -113,7 +113,22 @@ a {
     .deletePassenger:hover {
         cursor: pointer;
     }
+
+    @media (max-width: $mobileBreakpointMenu) {
+        display: none;
+    }
     
+}
+
+.sortButtons {
+    display: none;
+
+    @media (max-width: $mobileBreakpointMenu) {
+        display: block;
+        button {
+            margin: 15px 15px 0 0;
+        }
+    }
 
 }
 
@@ -122,6 +137,10 @@ a {
 .flex-2 {
     display: flex;
     justify-content: space-around;
+
+    @media (max-width: $mobileBreakpointOneA) {
+        flex-direction: column;
+    }
 }
 
 .create-form {
@@ -131,6 +150,11 @@ a {
     border: 0.5px solid $second-color;
     border-radius: 5px;
     height: max-content;
+    margin-right: 20px;
+    @media (max-width: $mobileBreakpointOneA) {
+        margin-right: 0px;
+    }
+
     h4, h5 {
         margin-bottom: 10px;
         text-align: center;
@@ -138,37 +162,90 @@ a {
     }
 
     .lat-lng {
+        display: flex;
+        justify-content: center;
+        input {
+            width: 50%;
+        }
         input:first-child {
             margin-right: 5px;
         }
     }
 }
 
-.map {
-    .information {
-        margin-top: 10px;
-    }
+.information {
+    margin: 10px 0px;
     button {
-        margin-top: 10px;
+        margin: 10px 0 20px;
     }
 }
-
 
 // Detail Page
 
 .detail {
     margin-top: 30px;
     justify-content: flex-start;
-    .google-map {
-        margin-right: 30px;
-    }
-
     .info {
+        margin-left: 20px;
+        @media (max-width: $mobileBreakpointOneA) {
+            margin-left: 0px;
+        }
         p {
             margin-bottom: 10px;
             font-weight: bold;
             color: $second-color;
         }
     }
+
+    @media (max-width: $mobileBreakpointOneA) {
+        display: flex;
+        flex-direction: column-reverse;
+        
+    }
 }
 
+
+// Map
+
+.google-map {
+    max-width: 700px;
+    width: 100%;
+    height: 32em;
+
+    @media (max-width: $mobileBreakpointOneA) {
+        margin-top: 20px;
+    }
+}
+
+
+// Card 
+
+.cards {
+    display: none;
+    @media (max-width: $mobileBreakpointMenu) {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    }
+    
+}
+
+.card {
+    display: flex;
+    justify-content: space-around;
+    border: 1px solid $second-color;
+    padding: 15px;
+    margin-bottom: 20px;
+    margin-right: 20px;
+    width: 300px;
+    height: auto;
+    border-radius: 8px;
+    
+    .heading, .body {
+        display: flex;
+        flex-direction: column;
+        p, div {
+            margin-bottom: 15px;
+        }
+    }
+}

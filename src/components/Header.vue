@@ -2,7 +2,7 @@
   <div class="header">
     <div class="container">
       <div class="logo">
-        <router-link to="/">
+        <router-link to="/passengers">
           <img src="../assets/images/logo.png" alt="" />
         </router-link>
       </div>
