@@ -8,19 +8,25 @@ export default new Vuex.Store({
   state: {
     passengers: [],
     createdPass: "",
+    averageTripDuration: 0,
   },
   mutations: {
     GET_PASSENGERS(state, payload) {
       state.passengers = payload;
     },
     CREATE_PASSENGER(state, payload) {
-      state.createdPass = payload;
+      state.passengers.push(payload);
     },
     DELETE_PASSENGER(state, payload) {
       const index = state.passengers.indexOf(payload);
       if (index > -1) {
         state.passengers.splice(index, 1);
       }
+    },
+    AVERAGE_TIME(state) {
+      const arrAvg = (arr) =>
+        arr.reduce((total, b) => total + b.tripDuration.value, 0) / arr.length;
+      state.averageTripDuration = arrAvg(state.passengers);
     },
   },
   actions: {
@@ -29,13 +35,16 @@ export default new Vuex.Store({
       commit("GET_PASSENGERS", response);
     },
     async createPassenger({ commit }, data) {
-      console.log(data);
       const response = await api.createPassenger(data);
       commit("CREATE_PASSENGER", response);
+      commit("AVERAGE_TIME");
     },
     async deletePassenger({ commit }, passenger) {
       await api.deletePassenger(passenger);
       commit("DELETE_PASSENGER", passenger);
+    },
+    averageTime({ commit }) {
+      commit("AVERAGE_TIME");
     },
   },
   modules: {},

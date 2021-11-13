@@ -57,9 +57,18 @@
         </GmapMap>
         <div class="information">
           <p v-if="distance && duration">
-            The distance between these locations is: {{ distance }} The trip
-            duration with driving is:
-            {{ (duration / (60 * 60)).toFixed(2) }} hours.
+            The distance between these locations is:
+            <span class="red">{{ distance }}</span> The trip duration with
+            driving is:
+            <span class="red">{{ (duration / 60).toFixed(2) }}</span> mins.
+          </p>
+          <p v-if="averageTripDuration">
+            Average of passengers trip duration is
+            <span class="red">
+              {{ (averageTripDuration / 60).toFixed(2) }}
+            </span>
+
+            mins.
           </p>
           <button class="secondary" @click="resetMap()">Reset Map</button>
         </div>
@@ -95,7 +104,10 @@ export default {
   },
   computed: {
     google: gmapApi,
-    ...mapState(["passengers"]),
+    ...mapState(["passengers", "averageTripDuration"]),
+  },
+  created() {
+    this.$store.dispatch("averageTime");
   },
   methods: {
     create() {
@@ -130,7 +142,6 @@ export default {
         this.destination = marker;
         this.locations.push(this.destination);
         this.calculateDistance();
-        console.log("dest", this.destination);
       }
     },
     async calculateDistance() {
@@ -148,7 +159,6 @@ export default {
       this.locations = [];
     },
     checkValidation() {
-      console.log(this.passengers.length);
       if (this.duration / (60 * 60) > 2) {
         this.err = "Trip Duration is more than 2 hours.";
         return false;

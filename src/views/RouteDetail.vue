@@ -25,6 +25,10 @@
         <p>Name: {{ item.name }}</p>
         <p>Pick up Order : {{ item.pickUpOrder }}</p>
         <p>Trip Duration: {{ item.tripDuration.text }}</p>
+        <p v-if="averageTripDuration">
+          Average of Passengers Trip Duration:
+          {{ (averageTripDuration / 60).toFixed(2) }} mins
+        </p>
       </div>
     </div>
   </div>
@@ -51,7 +55,7 @@ export default {
     }
   },
   computed: {
-    ...mapState(["passengers"]),
+    ...mapState(["passengers", "averageTripDuration"]),
   },
   watch: {
     passenger: function () {
