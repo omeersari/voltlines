@@ -10,7 +10,7 @@
     <div class="body">
       <div>{{ passenger.name }}</div>
       <div>{{ passenger.pickUpOrder }}</div>
-      <div>{{ passenger.tripDuration }}</div>
+      <div>{{ passenger.tripDuration.text }}</div>
       <div>
         <button class="secondary" @click="goToDetails(passenger)">
           Go To Details

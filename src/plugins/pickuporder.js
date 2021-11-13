@@ -4,5 +4,4 @@
 
 // header resposinve design
 // pickUpOrder
-// passengers average travel time.
 // pop uplar.

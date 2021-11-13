@@ -74,6 +74,8 @@
         </div>
       </div>
     </div>
+    <notifications group="create" position="bottom left" />
+    <notifications group="reset" position="bottom right" />
   </div>
 </template>
 
@@ -120,11 +122,25 @@ export default {
       };
       if (!this.name || !this.pickUpOrder || !this.tripDuration) {
         this.err = "Please provide all fields";
+        this.$notify({
+          group: "create",
+          title: "Warn",
+          text: "Please provide all fields",
+          type: "warn",
+          duration: "3000",
+        });
       } else {
         this.err = "";
         if (this.checkValidation()) {
           this.$store.dispatch("createPassenger", data);
           this.resetMap();
+          this.$notify({
+            group: "create",
+            title: "Created",
+            text: "Passenger is created",
+            type: "success",
+            duration: "3000",
+          });
         }
       }
     },
@@ -161,10 +177,24 @@ export default {
     checkValidation() {
       if (this.duration / (60 * 60) > 2) {
         this.err = "Trip Duration is more than 2 hours.";
+        this.$notify({
+          group: "create",
+          title: "Error",
+          text: "Trip Duration is more than 2 hours.",
+          type: "error",
+          duration: "3000",
+        });
         return false;
       }
       if (this.passengers.length >= 9) {
         this.err = "Total passenger maximum can be 9";
+        this.$notify({
+          group: "create",
+          title: "Error",
+          text: "Total passenger maximum can be 9",
+          type: "Error",
+          duration: "3000",
+        });
         return false;
       }
       if (!this.err) {
@@ -184,6 +214,13 @@ export default {
       };
       this.name = "";
       this.pickUpOrder = "";
+      this.$notify({
+        group: "reset",
+        title: "Success",
+        text: "Map is resetted",
+        type: "success",
+        duration: "3000",
+      });
     },
   },
 };

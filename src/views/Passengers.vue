@@ -57,13 +57,14 @@
     </div>
     <div class="cards">
       <card
-        v-for="passenger in passengers"
+        v-for="passenger in filteredPassengers"
         :key="passenger.id"
         :passenger="passenger"
         @deletePassenger="deletePassenger(passenger)"
         @goToDetails="goToDetails(passenger)"
       />
     </div>
+    <notifications group="delete" position="bottom right" />
   </div>
 </template>
 
@@ -103,6 +104,13 @@ export default {
     },
     deletePassenger(item) {
       this.$store.dispatch("deletePassenger", item);
+      this.$notify({
+        group: "delete",
+        title: "Success",
+        text: "Passenger is deleted",
+        type: "success",
+        duration: "3000",
+      });
     },
     sortList(val) {
       if (val == "tripDuration") {
