@@ -192,10 +192,20 @@ export default {
           group: "create",
           title: "Error",
           text: "Total passenger maximum can be 9",
-          type: "Error",
+          type: "error",
           duration: "3000",
         });
         return false;
+      }
+      if (this.pickUpOrder >= 10 || this.pickUpOrder < 1) {
+        this.err = "Pick Up Order should be in the range of 1-9";
+        this.$notify({
+          group: "create",
+          title: "Warn",
+          text: "Pick Up Order should be in the range of 1-9",
+          type: "warn",
+          duration: "3000",
+        });
       }
       if (!this.err) {
         return true;
