@@ -43,7 +43,7 @@
           {{ item.pickUpOrder }}
         </div>
         <div>
-          {{ item.tripDuration }}
+          {{ item.tripDuration.text }}
         </div>
         <div class="">
           <button class="secondary" @click="goToDetails(item)">
@@ -108,11 +108,11 @@ export default {
       if (val == "tripDuration") {
         if (!this.tripDuration) {
           this.passengers.sort((a, b) => {
-            return a.tripDuration - b.tripDuration;
+            return a.tripDuration.value - b.tripDuration.value;
           });
         } else {
           this.passengers.sort((a, b) => {
-            return b.tripDuration - a.tripDuration;
+            return b.tripDuration.value - a.tripDuration.value;
           });
         }
         this.tripDuration = !this.tripDuration;

@@ -28,7 +28,7 @@
           type="text"
           placeholder="Trip Duration"
           disabled
-          v-model="tripDuration"
+          v-model="tripDuration.text"
         />
         <p class="warn">
           Trip duration will be automatically filled after marking the map.
@@ -143,7 +143,7 @@ export default {
       if (res.rows[0].elements[0].distance) {
         this.distance = res.rows[0].elements[0].distance["text"];
         this.duration = res.rows[0].elements[0].duration["value"];
-        this.tripDuration = res.rows[0].elements[0].duration["text"];
+        this.tripDuration = res.rows[0].elements[0].duration;
       }
       this.locations = [];
     },

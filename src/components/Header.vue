@@ -11,7 +11,7 @@
           <router-link to="/passengers"> Passengers </router-link>
           <router-link to="/create"> Create </router-link>
           <router-link to="/routedetail"> Route Details </router-link>
-          <button class="secondary">Logout</button>
+          <button class="secondary" @click="goToLogin">Logout</button>
         </ul>
       </div>
     </div>
@@ -19,5 +19,11 @@
 </template>
 
 <script>
-export default {};
+export default {
+  methods: {
+    goToLogin() {
+      this.$router.push("/");
+    },
+  },
+};
 </script>

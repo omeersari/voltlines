@@ -24,7 +24,7 @@
       <div class="info">
         <p>Name: {{ item.name }}</p>
         <p>Pick up Order : {{ item.pickUpOrder }}</p>
-        <p>Trip Duration: {{ item.tripDuration }}</p>
+        <p>Trip Duration: {{ item.tripDuration.text }}</p>
       </div>
     </div>
   </div>
