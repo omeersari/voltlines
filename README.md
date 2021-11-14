@@ -41,7 +41,9 @@ You can login with username: [admin] and password [1234].
 
 ### Passengers
 
-In the passenger table, we can the see passengers with their names, pick up orders and trip durations. Also we can click 'go to details' button to see the route and other information. Delete icon deletes the passenger.
+In the passenger table, we can the see passengers with their names, pick up orders and trip durations. Also we can click 'go to details' button to see the route and other information. 
+
+Delete icon deletes the passenger. Edit icon will redirect to create page to update the passenger.
 
 The table can be filtered by exact name, can be sorted according to pick up order and trip duration.
 
@@ -62,6 +64,7 @@ Creating the new passenger should check 2 validations:
 
 Reset map button simply clears the form and the map.
 
+For now user can give the same pick up order number to different passengers. (Can be improved.)
 
 ### Route Detail
 
