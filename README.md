@@ -49,7 +49,9 @@ The table can be filtered by exact name, can be sorted according to pick up orde
 
 ### Create
 
-We can create a new passenger by filling all the fields. Lat and lng values are displayed when the user clicks on the map to determine origin. After the second click route is displayed, distance and trip duration are also displayed below the map.
+We can create a new passenger or update an existing passenger by filling all the fields. Lat and lng values are displayed when the user clicks on the map to determine origin. After the second click route is displayed, distance and trip duration are also displayed below the map.
+
+For updating if the user wants to change the origin too, he/she needs to reset the map. However changing destination can be done by clicking on the map. It will re-arrange the destination.
 
 User can enter a number in pick up order input to determine the order. It is in the range between 1-9.
 
@@ -62,9 +64,9 @@ Creating the new passenger should check 2 validations:
 - Trip duration must be lower than 2 hours.
 - Total passenger number should be lower than 10.
 
-Reset map button simply clears the form and the map.
+Reset map button simply clears the map.
 
-For now user can give the same pick up order number to different passengers. (Can be improved.)
+- Note: For now user can give the same pick up order number to different passengers. (Can be improved.)
 
 ### Route Detail
 
