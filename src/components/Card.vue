@@ -5,7 +5,7 @@
       <p>Pick Up Order:</p>
       <p>Trip Duration:</p>
       <p>Trip Route:</p>
-      <p>Delete:</p>
+      <p>Actions:</p>
     </div>
     <div class="body">
       <div>{{ passenger.name }}</div>
@@ -17,6 +17,11 @@
         </button>
       </div>
       <div @click="deletePassenger(passenger)">
+        <i
+          style="margin-right: 5px"
+          class="fas fa-edit"
+          @click="editPassenger(item)"
+        ></i>
         <i class="fas fa-trash-alt"></i>
       </div>
     </div>

@@ -28,6 +28,12 @@ export default new Vuex.Store({
         arr.reduce((total, b) => total + b.tripDuration.value, 0) / arr.length;
       state.averageTripDuration = arrAvg(state.passengers);
     },
+    EDIT_PASSENGER(state, payload) {
+      const itemIndex = state.passengers.findIndex(
+        (item) => item.id == payload.id
+      );
+      state.passengers[itemIndex] = payload;
+    },
   },
   actions: {
     async getPassengers({ commit }) {
@@ -42,6 +48,11 @@ export default new Vuex.Store({
     async deletePassenger({ commit }, passenger) {
       await api.deletePassenger(passenger);
       commit("DELETE_PASSENGER", passenger);
+    },
+    async updatePassenger({ commit }, data) {
+      await api.editPassenger(data);
+      commit("EDIT_PASSENGER", data);
+      commit("AVERAGE_TIME");
     },
     averageTime({ commit }) {
       commit("AVERAGE_TIME");

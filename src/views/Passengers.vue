@@ -33,7 +33,7 @@
           <i class="fas fa-sort"></i>
         </div>
         <div class="route">Trip Route</div>
-        <div class="route">Delete</div>
+        <div class="route">Actions</div>
       </div>
       <div class="row" v-for="item in filteredPassengers" :key="item.id">
         <div>
@@ -50,8 +50,13 @@
             Go To Details
           </button>
         </div>
-        <div class="deletePassenger" @click="deletePassenger(item)">
-          <i class="fas fa-trash-alt"></i>
+        <div class="deletePassenger">
+          <i
+            style="margin-right: 5px"
+            class="fas fa-edit"
+            @click="editPassenger(item)"
+          ></i>
+          <i class="fas fa-trash-alt" @click="deletePassenger(item)"></i>
         </div>
       </div>
     </div>
@@ -111,6 +116,9 @@ export default {
         type: "success",
         duration: "3000",
       });
+    },
+    editPassenger(item) {
+      this.$router.push({ name: "Create", params: { item } });
     },
     sortList(val) {
       if (val == "tripDuration") {

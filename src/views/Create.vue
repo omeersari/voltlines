@@ -33,7 +33,9 @@
         <p class="warn">
           Trip duration will be automatically filled after marking the map.
         </p>
-        <button class="primary" @click="create">Create Route</button>
+        <button :class="[update ? 'third' : 'primary']" @click="create">
+          {{ update ? "UPDATE" : "Create Passenger" }}
+        </button>
         <p class="error" v-if="err">{{ err }}</p>
       </div>
       <div class="google-map">
@@ -102,6 +104,8 @@ export default {
       distance: "",
       duration: "",
       err: "",
+      update: false,
+      id: "",
     };
   },
   computed: {
@@ -110,37 +114,54 @@ export default {
   },
   created() {
     this.$store.dispatch("averageTime");
-  },
-  methods: {
-    create() {
-      const data = {
+    if (this.$route.params.item) {
+      ({
+        id: this.id,
         name: this.name,
         pickUpLocation: this.pickUpLocation,
         pickUpOrder: this.pickUpOrder,
         tripDuration: this.tripDuration,
-        destination: this.destination,
-      };
+      } = this.$route.params.item);
+      this.update = true;
+      setTimeout(() => {
+        this.position = this.pickUpLocation;
+        this.destination = this.$route.params.item.destination;
+      }, 500);
+    }
+  },
+  methods: {
+    create() {
       if (!this.name || !this.pickUpOrder || !this.tripDuration) {
         this.err = "Please provide all fields";
-        this.$notify({
-          group: "create",
-          title: "Warn",
-          text: "Please provide all fields",
-          type: "warn",
-          duration: "3000",
-        });
+        this.notify("Warn", "Please provide all fields", "warn");
       } else {
         this.err = "";
         if (this.checkValidation()) {
-          this.$store.dispatch("createPassenger", data);
+          if (this.update) {
+            const data = {
+              id: this.id,
+              name: this.name,
+              pickUpLocation: this.pickUpLocation,
+              pickUpOrder: this.pickUpOrder,
+              tripDuration: this.tripDuration,
+              destination: this.destination,
+            };
+            this.$store.dispatch("updatePassenger", data);
+            this.notify("Updated", "Passenger is updated", "success");
+            this.update = false;
+          } else {
+            const data = {
+              name: this.name,
+              pickUpLocation: this.pickUpLocation,
+              pickUpOrder: this.pickUpOrder,
+              tripDuration: this.tripDuration,
+              destination: this.destination,
+            };
+            this.$store.dispatch("createPassenger", data);
+            this.notify("Created", "Passenger is created", "success");
+          }
           this.resetMap();
-          this.$notify({
-            group: "create",
-            title: "Created",
-            text: "Passenger is created",
-            type: "success",
-            duration: "3000",
-          });
+          this.resetForm();
         }
       }
     },
@@ -222,13 +243,24 @@ export default {
         lat: "",
         lng: "",
       };
-      this.name = "";
-      this.pickUpOrder = "";
       this.$notify({
         group: "reset",
         title: "Success",
         text: "Map is resetted",
         type: "success",
+        duration: "3000",
+      });
+    },
+    resetForm() {
+      this.name = "";
+      this.pickUpOrder = "";
+    },
+    notify(title, text, type) {
+      this.$notify({
+        group: "create",
+        title: title,
+        text: text,
+        type: type,
         duration: "3000",
       });
     },
