@@ -16,13 +16,13 @@
           Go To Details
         </button>
       </div>
-      <div @click="deletePassenger(passenger)">
+      <div>
         <i
           style="margin-right: 5px"
           class="fas fa-edit"
           @click="editPassenger(item)"
         ></i>
-        <i class="fas fa-trash-alt"></i>
+        <i class="fas fa-trash-alt" @click="deletePassenger(passenger)"></i>
       </div>
     </div>
   </div>

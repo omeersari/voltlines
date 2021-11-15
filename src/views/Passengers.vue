@@ -66,6 +66,7 @@
         :key="passenger.id"
         :passenger="passenger"
         @deletePassenger="deletePassenger(passenger)"
+        @editPassenger="editPassenger(passenger)"
         @goToDetails="goToDetails(passenger)"
       />
     </div>
