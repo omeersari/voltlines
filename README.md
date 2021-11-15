@@ -18,6 +18,13 @@ yarn install
 yarn serve
 ```
 
+To run with Docker:
+
+```
+docker build -t voltlines .
+docker run -it -p 8080:8080 --rm --name dockerize-voltlines voltlines
+```
+
 
 # Used Tech and Libraries and Notes
 
