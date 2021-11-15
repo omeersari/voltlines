@@ -40,6 +40,9 @@ export default {
     deletePassenger(item) {
       this.$emit("deletePassenger", item);
     },
+    editPassenger(item) {
+      this.$emit("editPassenger", item);
+    },
     goToDetails(item) {
       this.$emit("goToDetails", item);
     },
